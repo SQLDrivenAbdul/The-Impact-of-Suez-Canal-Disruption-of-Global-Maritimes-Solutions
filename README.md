@@ -72,5 +72,4 @@ ON l.date_id = r.date_id
 WHERE fiscal_year =  2021 AND month = 3
 GROUP BY r.date_id
 ```
-##Result
-![Average Movement Duration in March 2021](docs/your-screenshot-filename.png)
+##Result![Average Movement Duration in March 2021](docs/Output1.JPG)
