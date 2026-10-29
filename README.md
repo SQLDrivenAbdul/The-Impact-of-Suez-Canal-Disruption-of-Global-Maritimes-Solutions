@@ -52,3 +52,23 @@ Using the available maritime dataset, this analysis aims to identify the disrupt
 
 For details about the dataset, table descriptions, key columns, and relationships, see the [Data Dictionary](docs/data_dictionary.md).
 
+## SQL Exploratory Data Analysis (EDA)
+
+## 1. Measuring the Immediate Impact
+
+Following the Suez Canal disruption, stakeholders need to understand how the incident affected maritime operations, whether performance eventually recovered, and how long that recovery took.
+
+The six-day blockage prevented vessels from passing through the canal, creating a backlog of ships waiting to transit. But how did this disruption translate into longer voyage durations?
+
+To investigate this, I used SQL to calculate the average voyage duration (move duration) for each day of March 2021, to easily spot any unusual delay for in any of the month. 
+
+```sql
+SELECT
+  r.date_id,
+  ROUND(AVG(move_duration/24),2) AS avg_voyage_duration
+FROM fact_cargo_movements AS l
+INNER JOIN dim_time AS r
+ON l.date_id = r.date_id
+WHERE fiscal_year =  2021 AND month = 3
+GROUP BY r.date_id
+```
