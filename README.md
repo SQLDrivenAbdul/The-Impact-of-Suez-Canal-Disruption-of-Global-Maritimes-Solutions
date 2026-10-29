@@ -52,6 +52,7 @@ Using the available maritime dataset, this analysis aims to identify the disrupt
 
 For details about the dataset, table descriptions, key columns, and relationships, see the [Data Dictionary](docs/data_dictionary.md).
 
+
 ## SQL Exploratory Data Analysis (EDA)
 
 ## 1. Measuring the Immediate Impact
@@ -60,16 +61,46 @@ Following the Suez Canal disruption, stakeholders need to understand how the inc
 
 The six-day blockage prevented vessels from passing through the canal, creating a backlog of ships waiting to transit. But how did this disruption translate into longer voyage durations?
 
-To investigate this, I used SQL to calculate the average voyage duration (move duration) for each day of March 2021, to easily spot any unusual delay for in any of the month. 
+To investigate this, I used SQL to calculate the average voyage days (move duration) for each day of March 2021, to easily spot any unusual delay for in any of the month. 
 
 ```sql
 SELECT
   r.date_id,
-  ROUND(AVG(move_duration/24),2) AS avg_voyage_duration
+  ROUND(AVG(move_duration/24),2) AS avg_voyage_days
 FROM fact_cargo_movements AS l
 INNER JOIN dim_time AS r
 ON l.date_id = r.date_id
 WHERE fiscal_year =  2021 AND month = 3
 GROUP BY r.date_id
 ```
-##Result![Average Movement Duration in March 2021](docs/Output1.JPG)
+## Result
+
+![Average Movement Duration in March 2021](docs/Output1.JPG)
+
+The Suez Canal disruption began on 23 March 2021. The query results show that average movement duration increased from 23 days on 23 March to 35 days on 24 March. This sharp increase suggests that vessels recorded on the day after the disruption began experienced longer movement durations.
+
+## Did the delay defer in the regional hubs?
+
+```sql
+SELECT 
+ regional_hub,
+ ROUND(AVG(CASE WHEN r.date_id BETWEEN '2021-03-01'  AND '2021-03-23' THEN move_duration/24 END),0) AS prior_24th,
+ ROUND(AVG(CASE WHEN r.date_id = '2021-03-24' THEN move_duration/24 END),0) AS on_24th,
+ ROUND(AVG(CASE WHEN r.date_id >= '2021-03-25' AND r.date_id < '2021-04-01' THEN move_duration/24 END),0) AS '25th-31st'
+FROM fact_cargo_movements AS l
+INNER JOIN dim_time AS r
+ON l.date_id = r.date_id
+INNER JOIN dim_terminal AS z
+ON l.terminal_id  = z.terminal_id
+WHERE fiscal_year = 2021 AND r.month = 3
+GROUP BY regional_hub
+```
+
+The query above calculates the average time it took vessels to reach their destinations by dividing March into three periods:
+
+1. Pre-disruption period: 1 March to 23 March, the day the incident began.
+2. Immediate post-disruption period: 24 March, when the spike in average movement duration was observed.
+3. Later post-disruption period: 25 March to 31 March.
+
+
+## Result
