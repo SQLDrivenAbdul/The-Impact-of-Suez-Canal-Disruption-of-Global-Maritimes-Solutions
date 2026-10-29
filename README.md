@@ -104,3 +104,8 @@ The query above calculates the average time it took vessels to reach their desti
 
 
 ## Result
+
+![Average Movement Duration Across Three Periods](docs/Output2.JPG)
+
+
+The result shows that 24th, the average voyage days across regional hubs showed a marked increase. EMEA’s average doubled, reflecting a 19-day increase compared to the pre–24th average. AMER and LATAM recorded increases of 7 and 4 days, respectively, while APAC had no recorded voyages on that day. However, from the 25th through the end of March, the average dropped back to near pre–24th levels.
