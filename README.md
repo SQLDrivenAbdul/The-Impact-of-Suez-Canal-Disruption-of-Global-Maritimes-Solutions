@@ -46,3 +46,9 @@ Using the available maritime dataset, this analysis aims to identify the disrupt
 4. **Recovery Analysis:** Establish pre-disruption performance baselines and measure how long cargo movements and terminal efficiency took to return to normal levels.
 
 5. **Data Visualization:** Use Power BI to present trends, regional comparisons, performance indicators, and recovery patterns in an interactive dashboard.
+
+
+## Dataset Documentation
+
+For details about the dataset, table descriptions, key columns, and relationships, see the [Data Dictionary](docs/data_dictionary.md).
+
