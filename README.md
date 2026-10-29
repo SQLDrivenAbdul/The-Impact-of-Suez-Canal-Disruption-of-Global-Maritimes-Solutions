@@ -79,7 +79,7 @@ GROUP BY r.date_id
 
 The Suez Canal disruption began on 23 March 2021. The query results show that average movement duration increased from 23 days on 23 March to 35 days on 24 March. This sharp increase suggests that vessels recorded on the day after the disruption began experienced longer movement durations.
 
-## Did the delay defer in the regional hubs?
+## How Did the Disruption Affect Regional Hubs?
 
 ```sql
 SELECT 
@@ -109,3 +109,7 @@ The query above calculates the average time it took vessels to reach their desti
 
 
 The result shows that 24th, the average voyage days across regional hubs showed a marked increase. EMEA’s average doubled, reflecting a 19-day increase compared to the pre–24th average. AMER and LATAM recorded increases of 7 and 4 days, respectively, while APAC had no recorded voyages on that day. However, from the 25th through the end of March, the average dropped back to near pre–24th levels.
+
+## Data Visualization
+
+![Data Visualization](docs/Data%20Visualization.JPG)
